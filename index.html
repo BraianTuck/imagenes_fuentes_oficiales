@@ -40,6 +40,46 @@
         padding: clamp(24px, 4vw, 48px);
       }
 
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 26px;
+      }
+
+      .tab {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--muted);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 18px rgba(180, 109, 20, 0.12);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .tab:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 20px rgba(180, 109, 20, 0.2);
+      }
+
+      .tab.is-active {
+        background: var(--accent);
+        color: #3b2608;
+        border-color: rgba(180, 109, 20, 0.4);
+        box-shadow: 0 12px 22px rgba(180, 109, 20, 0.26);
+      }
+
+      .tab:focus-visible {
+        outline: 2px solid var(--accent-deep);
+        outline-offset: 3px;
+      }
+
+      .tab-panel[hidden] {
+        display: none;
+      }
+
       .hero {
         display: grid;
         grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
@@ -135,6 +175,13 @@
         z-index: 1;
       }
 
+      .panel-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
       .panel-title {
         margin: 0;
         font-family: "Fraunces", Georgia, serif;
@@ -148,6 +195,62 @@
         margin-top: 16px;
         position: relative;
         z-index: 1;
+      }
+
+      .panel-body.panel-body--single {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .image-card {
+        display: grid;
+        gap: 14px;
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 18px;
+        padding: 16px;
+        border: 1px solid rgba(196, 168, 120, 0.25);
+      }
+
+      .image-preview {
+        background: var(--stage);
+        border-radius: 16px;
+        border: 1px dashed rgba(171, 134, 72, 0.4);
+        padding: 14px;
+        min-height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .image-preview img,
+      .image-preview svg {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
+
+      .image-preview svg {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .image-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .image-title {
+        margin: 0;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 1.1rem;
+      }
+
+      .image-path {
+        font-size: 0.82rem;
+        color: var(--muted);
+        word-break: break-word;
       }
 
       .svg-stage {
@@ -301,6 +404,43 @@
   </head>
   <body>
     <div class="page">
+      <div class="tabs" role="tablist" aria-label="Secciones">
+        <button
+          class="tab is-active"
+          type="button"
+          role="tab"
+          id="tab-btn-actual"
+          aria-selected="true"
+          aria-controls="tab-actual"
+          data-tab="actual"
+        >
+          Por agregar (tentativas)
+        </button>
+        <button
+          class="tab"
+          type="button"
+          role="tab"
+          id="tab-btn-reportes"
+          aria-selected="false"
+          aria-controls="tab-reportes"
+          data-tab="reportes"
+        >
+          Reportes
+        </button>
+        <button
+          class="tab"
+          type="button"
+          role="tab"
+          id="tab-btn-dashboards"
+          aria-selected="false"
+          aria-controls="tab-dashboards"
+          data-tab="dashboards"
+        >
+          Dashboards
+        </button>
+      </div>
+      <div class="tab-panels">
+        <section class="tab-panel" id="tab-actual" role="tabpanel" data-tab-panel="actual" aria-labelledby="tab-btn-actual">
       <header class="hero">
         <div class="hero-card">
           <div class="kicker">Editor SVG</div>
@@ -535,7 +675,7 @@
       </section>
       <section class="panel" aria-labelledby="titulo-credit-card">
         <div class="panel-header">
-          <h2 class="panel-title" id="titulo-credit-card">Tarjeta de credito</h2>
+          <h2 class="panel-title" id="titulo-credit-card">Tarjeta de crédito</h2>
           <button class="copy" type="button" data-copy-target="svg-credit-card" data-status-target="status-credit-card">
             Copiar SVG
           </button>
@@ -547,40 +687,41 @@
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 64 64"
               role="img"
-              aria-label="Tarjeta de credito"
+              aria-label="Tarjeta de crédito"
             >
               <g>
                 <rect class="cc-band" x="2" y="20" width="60" height="8" fill="#506C7F"></rect>
+                  <rect class="cc-band" x="2" y="20" width="60" height="8" fill="#669966"></rect>
                 <g>
                   <path
                     class="cc-surface"
-                    fill="#B4CCB9"
+                      fill="#E7E7E7"
                     d="M2,52c0,1.104,0.896,2,2,2h56c1.104,0,2-0.896,2-2V30H2V52z"
                   ></path>
                   <path
                     class="cc-surface"
-                    fill="#B4CCB9"
+                      fill="#E7E7E7"
                     d="M60,10H4c-1.104,0-2,0.895-2,2v6h60v-6C62,10.895,61.104,10,60,10z"
                   ></path>
                 </g>
                 <path
                   class="cc-ink"
-                  fill="#394240"
+                    fill="#092A42"
                   d="M60,8H4c-2.211,0-4,1.789-4,4v40c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V12C64,9.789,62.211,8,60,8z M62,52c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V30h60V52z M62,28H2v-8h60V28z M62,18H2v-6c0-1.105,0.896-2,2-2h56c1.104,0,2,0.895,2,2V18z"
                 ></path>
                 <path
                   class="cc-ink"
-                  fill="#394240"
+                    fill="#092A42"
                   d="M11,40h14c0.553,0,1-0.447,1-1s-0.447-1-1-1H11c-0.553,0-1,0.447-1,1S10.447,40,11,40z"
                 ></path>
                 <path
                   class="cc-ink"
-                  fill="#394240"
+                    fill="#092A42"
                   d="M29,40h6c0.553,0,1-0.447,1-1s-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1S28.447,40,29,40z"
                 ></path>
                 <path
                   class="cc-ink"
-                  fill="#394240"
+                    fill="#092A42"
                   d="M11,46h10c0.553,0,1-0.447,1-1s-0.447-1-1-1H11c-0.553,0-1,0.447-1,1S10.447,46,11,46z"
                 ></path>
                 <path
@@ -589,6 +730,7 @@
                   d="M45,46h8c0.553,0,1-0.447,1-1v-6c0-0.553-0.447-1-1-1h-8c-0.553,0-1,0.447-1,1v6C44,45.553,44.447,46,45,46z M46,40h6v4h-6V40z"
                 ></path>
                 <rect class="cc-chip" x="46" y="40" width="6" height="4" fill="#F9EBB2"></rect>
+                  <rect class="cc-chip" x="46" y="40" width="6" height="4" fill="#CC5C5C"></rect>
               </g>
             </svg>
           </div>
@@ -652,30 +794,31 @@
               <g>
                 <path
                   class="shop-cream"
-                  fill="#FFF8EF"
+                    fill="#f4f4f4"
                   d="M212,244v16H104c-4.8,0-8,4-8,8v168H72V244c12.8-0.8,24.8-8,32-18.4c8,11.2,20.8,19.2,36,19.2s28-7.2,36-19.2C184,236.8,196.8,244,212,244z"
                 ></path>
                 <g>
                   <rect class="shop-ink" x="480" y="468" width="16" height="16" fill="#42210B"></rect>
+                    <rect class="shop-ink" x="480" y="468" width="16" height="16" fill="#092A42"></rect>
                   <path
                     class="shop-ink"
-                    fill="#42210B"
+                      fill="#092A42"
                     d="M472,468v16h-16H40H0v-16h32v-24c0-4,3.2-8,8-8h16V226.4C37.6,220.8,24,204,24,184V44V20c0-4,3.2-8,8-8h432c4,0,8,4,8,8v24v140c0,16.8-9.6,32-24,39.2V436h8c4,0,8,4,8,8v24H472z M456,184v-24V52h-56v108v24c0,15.2,12.8,28,28,28S456,199.2,456,184z M456,36v-8H40v8h64h72h72h72h72H456z M448,468v-16h-8H224H104H64H48v16H448z M432,436v-64V244v-16c-1.6,0-2.4,0-4,0l-36-19.2c-8,11.2-20.8,19.2-36,19.2s-28-7.2-36-19.2c-8,11.2-20.8,19.2-36,19.2s-28-7.2-36-19.2c-8,11.2-20.8,19.2-36,19.2s-28-7.2-36-19.2c-8,11.2-20.8,19.2-36,19.2s-28-7.2-36-19.2L72,228v16v192h24V268c0-4,3.2-8,8-8h108h12c4,0,8,4,8,8v104v64H432z M384,184v-24V52h-56v108v24c0,15.2,12.8,28,28,28S384,199.2,384,184z M312,184v-24V52h-56v108v24c0,15.2,12.8,28,28,28S312,199.2,312,184z M240,184v-24V52h-56v108v24c0,15.2,12.8,28,28,28S240,199.2,240,184z M216,436V276H112v160H216z M168,184v-24V52h-56v108v24c0,15.2,12.8,28,28,28S168,199.2,168,184z M96,184v-24V52H40v108v24c0,15.2,12.8,28,28,28S96,199.2,96,184z"
                   ></path>
                 </g>
                 <path
                   class="shop-teal"
-                  fill="#1D9AAE"
+                    fill="#008080"
                   d="M456,160v24c0,15.2-12.8,28-28,28s-28-12.8-28-28v-24c0,15.2,12.8,28,28,28S456,175.2,456,160z"
                 ></path>
                 <path
                   class="shop-aqua"
-                  fill="#2FB4C2"
+                    fill="#669966"
                   d="M456,52v108c0,15.2-12.8,28-28,28s-28-12.8-28-28V52H456z"
                 ></path>
                 <polygon
                   class="shop-orange"
-                  fill="#FF7D00"
+                    fill="#CC5C5C"
                   points="456,28 456,36 392,36 320,36 248,36 176,36 104,36 40,36 40,28"
                 ></polygon>
                 <polygon
@@ -3457,6 +3600,188 @@
         </div>
         <div class="status" id="status-client-people"></div>
       </section>
+      </section>
+      <section
+          class="tab-panel"
+          id="tab-reportes"
+          role="tabpanel"
+          data-tab-panel="reportes"
+          aria-labelledby="tab-btn-reportes"
+          hidden
+        >
+          <section class="panel" aria-labelledby="titulo-reportes">
+            <div class="panel-header">
+              <h2 class="panel-title" id="titulo-reportes">
+                Imagenes subidas a cognos - Reportes
+              </h2>
+            </div>
+            <div class="panel-body panel-body--single">
+              <div class="image-card">
+                <div class="image-preview">
+                  <svg
+                    id="svg-credit-card-reportes"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    role="img"
+                    aria-label="Tarjeta de crédito"
+                  >
+                    <g>
+                      <rect class="cc-band" x="2" y="20" width="60" height="8" fill="#506C7F"></rect>
+                      <rect class="cc-band" x="2" y="20" width="60" height="8" fill="#669966"></rect>
+                      <g>
+                        <path
+                          class="cc-surface"
+                          fill="#E7E7E7"
+                          d="M2,52c0,1.104,0.896,2,2,2h56c1.104,0,2-0.896,2-2V30H2V52z"
+                        ></path>
+                        <path
+                          class="cc-surface"
+                          fill="#E7E7E7"
+                          d="M60,10H4c-1.104,0-2,0.895-2,2v6h60v-6C62,10.895,61.104,10,60,10z"
+                        ></path>
+                      </g>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M60,8H4c-2.211,0-4,1.789-4,4v40c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V12C64,9.789,62.211,8,60,8z M62,52c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V30h60V52z M62,28H2v-8h60V28z M62,18H2v-6c0-1.105,0.896-2,2-2h56c1.104,0,2,0.895,2,2V18z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M11,40h14c0.553,0,1-0.447,1-1s-0.447-1-1-1H11c-0.553,0-1,0.447-1,1S10.447,40,11,40z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M29,40h6c0.553,0,1-0.447,1-1s-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1S28.447,40,29,40z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M11,46h10c0.553,0,1-0.447,1-1s-0.447-1-1-1H11c-0.553,0-1,0.447-1,1S10.447,46,11,46z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#394240"
+                        d="M45,46h8c0.553,0,1-0.447,1-1v-6c0-0.553-0.447-1-1-1h-8c-0.553,0-1,0.447-1,1v6C44,45.553,44.447,46,45,46z M46,40h6v4h-6V40z"
+                      ></path>
+                      <rect class="cc-chip" x="46" y="40" width="6" height="4" fill="#F9EBB2"></rect>
+                      <rect class="cc-chip" x="46" y="40" width="6" height="4" fill="#CC5C5C"></rect>
+                    </g>
+                  </svg>
+                </div>
+                <div class="image-meta">
+                  <div>
+                    <h3 class="image-title">Tarjeta de crédito (ejemplo)</h3>
+                    <div class="image-path">
+                      <code>../images/Iconos SOW/nombre_imagen.png</code>
+                    </div>
+                  </div>
+                  <button
+                    class="copy"
+                    type="button"
+                    data-copy-text="../images/Iconos SOW/nombre_imagen.png"
+                    data-status-target="status-reportes"
+                  >
+                    Copiar URL
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="status" id="status-reportes"></div>
+          </section>
+        </section>
+        <section
+          class="tab-panel"
+          id="tab-dashboards"
+          role="tabpanel"
+          data-tab-panel="dashboards"
+          aria-labelledby="tab-btn-dashboards"
+          hidden
+        >
+          <section class="panel" aria-labelledby="titulo-dashboards">
+            <div class="panel-header">
+              <h2 class="panel-title" id="titulo-dashboards">
+                Imagenes subidas a cognos - Dashboards
+              </h2>
+            </div>
+            <div class="panel-body panel-body--single">
+              <div class="image-card">
+                <div class="image-preview">
+                  <svg
+                    id="svg-credit-card-dashboards"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    role="img"
+                    aria-label="Tarjeta de crédito"
+                  >
+                    <g>
+                      <rect class="cc-band" x="2" y="20" width="60" height="8" fill="#506C7F"></rect>
+                      <rect class="cc-band" x="2" y="20" width="60" height="8" fill="#669966"></rect>
+                      <g>
+                        <path
+                          class="cc-surface"
+                          fill="#E7E7E7"
+                          d="M2,52c0,1.104,0.896,2,2,2h56c1.104,0,2-0.896,2-2V30H2V52z"
+                        ></path>
+                        <path
+                          class="cc-surface"
+                          fill="#E7E7E7"
+                          d="M60,10H4c-1.104,0-2,0.895-2,2v6h60v-6C62,10.895,61.104,10,60,10z"
+                        ></path>
+                      </g>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M60,8H4c-2.211,0-4,1.789-4,4v40c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V12C64,9.789,62.211,8,60,8z M62,52c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V30h60V52z M62,28H2v-8h60V28z M62,18H2v-6c0-1.105,0.896-2,2-2h56c1.104,0,2,0.895,2,2V18z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M11,40h14c0.553,0,1-0.447,1-1s-0.447-1-1-1H11c-0.553,0-1,0.447-1,1S10.447,40,11,40z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M29,40h6c0.553,0,1-0.447,1-1s-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1S28.447,40,29,40z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#092A42"
+                        d="M11,46h10c0.553,0,1-0.447,1-1s-0.447-1-1-1H11c-0.553,0-1,0.447-1,1S10.447,46,11,46z"
+                      ></path>
+                      <path
+                        class="cc-ink"
+                        fill="#394240"
+                        d="M45,46h8c0.553,0,1-0.447,1-1v-6c0-0.553-0.447-1-1-1h-8c-0.553,0-1,0.447-1,1v6C44,45.553,44.447,46,45,46z M46,40h6v4h-6V40z"
+                      ></path>
+                      <rect class="cc-chip" x="46" y="40" width="6" height="4" fill="#F9EBB2"></rect>
+                      <rect class="cc-chip" x="46" y="40" width="6" height="4" fill="#CC5C5C"></rect>
+                    </g>
+                  </svg>
+                </div>
+                <div class="image-meta">
+                  <div>
+                    <h3 class="image-title">Tarjeta de crédito (ejemplo)</h3>
+                    <div class="image-path">
+                      <code>https://cognos.intra.brou.com.uy/bi/images/Iconos%20SOW/nombre_imagen.jpeg</code>
+                    </div>
+                  </div>
+                  <button
+                    class="copy"
+                    type="button"
+                    data-copy-text="https://cognos.intra.brou.com.uy/bi/images/Iconos%20SOW/nombre_imagen.jpeg"
+                    data-status-target="status-dashboards"
+                  >
+                    Copiar URL
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="status" id="status-dashboards"></div>
+          </section>
+        </section>
+      </div>
     </div>
 
     <script>
@@ -3485,6 +3810,25 @@
           if (!stage) return;
           stage.style.setProperty("--stage", input.value);
         };
+
+        const setActiveTab = (tabId) => {
+          if (!tabId) return;
+          document.querySelectorAll("[data-tab]").forEach((tab) => {
+            const isActive = tab.dataset.tab === tabId;
+            tab.classList.toggle("is-active", isActive);
+            tab.setAttribute("aria-selected", isActive ? "true" : "false");
+          });
+          document.querySelectorAll("[data-tab-panel]").forEach((panel) => {
+            const isActive = panel.dataset.tabPanel === tabId;
+            panel.hidden = !isActive;
+          });
+        };
+
+        document.querySelectorAll("[data-tab]").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            setActiveTab(tab.dataset.tab);
+          });
+        });
 
         document.querySelectorAll('input[type="color"][data-part]').forEach((input) => {
           applyColor(input);
@@ -3574,9 +3918,146 @@
           }
         };
 
+        const setStatus = (status, message) => {
+          if (!status) return;
+          status.textContent = message;
+          setTimeout(() => {
+            status.textContent = "";
+          }, 2800);
+        };
+
+        const getSvgSize = (svg) => {
+          const viewBox = svg.viewBox && svg.viewBox.baseVal;
+          if (viewBox && viewBox.width && viewBox.height) {
+            return { width: viewBox.width, height: viewBox.height };
+          }
+          const rect = svg.getBoundingClientRect();
+          return {
+            width: rect.width || 300,
+            height: rect.height || 150,
+          };
+        };
+
+        const getStageColor = (stage) => {
+          if (!stage) return "#FFFFFF";
+          const computed = getComputedStyle(stage);
+          const custom = computed.getPropertyValue("--stage").trim();
+          if (custom) return custom;
+          const background = computed.backgroundColor;
+          if (background && background !== "rgba(0, 0, 0, 0)") {
+            return background;
+          }
+          return "#FFFFFF";
+        };
+
+        const ensurePanelActions = (button) => {
+          const header = button.closest(".panel-header");
+          if (!header) return null;
+          let actions = header.querySelector(".panel-actions");
+          if (!actions) {
+            actions = document.createElement("div");
+            actions.className = "panel-actions";
+            header.appendChild(actions);
+          }
+          actions.appendChild(button);
+          return actions;
+        };
+
+        const createDownloadButtons = () => {
+          document.querySelectorAll("[data-copy-target]").forEach((button) => {
+            const svgId = button.dataset.copyTarget;
+            if (!svgId) return;
+            const actions = ensurePanelActions(button);
+            if (!actions) return;
+            if (actions.querySelector(`[data-download-target="${svgId}"]`)) return;
+            const downloadButton = document.createElement("button");
+            downloadButton.type = "button";
+            downloadButton.className = "copy";
+            downloadButton.textContent = "Descargar PNG";
+            downloadButton.dataset.downloadTarget = svgId;
+            if (button.dataset.statusTarget) {
+              downloadButton.dataset.statusTarget = button.dataset.statusTarget;
+            }
+            const stageSuffix = svgId.startsWith("svg-") ? svgId.slice(4) : svgId;
+            downloadButton.dataset.stageTarget = `stage-${stageSuffix}`;
+            actions.appendChild(downloadButton);
+          });
+        };
+
+        const downloadSvgAsPng = (svgId, stageId, statusId) => {
+          const svg = document.getElementById(svgId);
+          if (!svg) return;
+          const status = statusId ? document.getElementById(statusId) : null;
+          const serializer = new XMLSerializer();
+          let text = serializer.serializeToString(svg);
+          if (!text.includes("xmlns=")) {
+            text = text.replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"');
+          }
+          const svgBlob = new Blob([text], { type: "image/svg+xml;charset=utf-8" });
+          const url = URL.createObjectURL(svgBlob);
+          const image = new Image();
+          const { width, height } = getSvgSize(svg);
+          const scale = Math.min(2, window.devicePixelRatio || 1);
+
+          image.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.ceil(width * scale));
+            canvas.height = Math.max(1, Math.ceil(height * scale));
+            const ctx = canvas.getContext("2d");
+            if (!ctx) {
+              URL.revokeObjectURL(url);
+              setStatus(status, "No se pudo generar el PNG.");
+              return;
+            }
+            const stage = stageId ? document.getElementById(stageId) : null;
+            const background = getStageColor(stage);
+            if (background) {
+              ctx.fillStyle = background;
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            ctx.setTransform(scale, 0, 0, scale, 0, 0);
+            ctx.drawImage(image, 0, 0, width, height);
+            URL.revokeObjectURL(url);
+            canvas.toBlob((blob) => {
+              if (!blob) {
+                setStatus(status, "No se pudo generar el PNG.");
+                return;
+              }
+              const nameBase = svgId.startsWith("svg-") ? svgId.slice(4) : svgId;
+              const link = document.createElement("a");
+              link.download = `${nameBase}.png`;
+              link.href = URL.createObjectURL(blob);
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+              URL.revokeObjectURL(link.href);
+              setStatus(status, "PNG descargado.");
+            }, "image/png");
+          };
+
+          image.onerror = () => {
+            URL.revokeObjectURL(url);
+            setStatus(status, "No se pudo generar el PNG.");
+          };
+
+          image.src = url;
+        };
+
+        createDownloadButtons();
+
         document.querySelectorAll("[data-copy-target]").forEach((button) => {
           button.addEventListener("click", () => {
             copySvg(button.dataset.copyTarget, button.dataset.statusTarget);
+          });
+        });
+
+        document.querySelectorAll("[data-download-target]").forEach((button) => {
+          button.addEventListener("click", () => {
+            downloadSvgAsPng(
+              button.dataset.downloadTarget,
+              button.dataset.stageTarget,
+              button.dataset.statusTarget
+            );
           });
         });
 
